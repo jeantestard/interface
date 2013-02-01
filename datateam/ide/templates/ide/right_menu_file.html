@@ -1,0 +1,31 @@
+<script type="text/javascript">
+  $("#{{ fid }}_right").remove();
+  $('body').append(
+  '<div id="{{ fid }}_right" class="right_menu">\
+  <ul>\
+    <li class="fd">{{ f }}</li>\
+    <li class="btop"><a href="/view_file{{ file|urlencode }}" target="_blank" onclick="close_right(\'{{ fid }}\')" class="view">View File</a></li>\
+    <li><a href="javascript: rename(\'{{ file }}\', \'{{ fid }}\')" class="rename">Rename</a></li>\
+    <li><a href="javascript: delete_me(\'{{ file }}\', \'{{ fid }}\')" class="delete">Delete</a></li>\
+  </ul>\
+</div>' 
+  );
+  $("#{{ fid }} > a").bind('contextmenu rightclick', function(e) {
+    $(".right_menu").css("display", 'none');
+    
+    $("#{{ fid }}_right").css("display", 'block');
+    var t = e.pageY - 20;
+    var h = $("#{{ fid }}_right").height();
+    var bottom = t + h;
+    var doch = $(window).height();
+    if (bottom > doch) {
+      t = doch - h;
+    }
+    $("#{{ fid }}_right").css("top", t + 'px');
+    
+    var ol = e.pageX - 20;
+    $("#{{ fid }}_right").css("left", ol + 'px');
+    e.preventDefault();
+    return false;
+  });
+</script>

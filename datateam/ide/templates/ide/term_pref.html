@@ -1,0 +1,43 @@
+{% extends "ide/master_iframe.html" %}
+{% block head %}
+<base target="_blank">
+<style type="text/css">
+  input[type="text"] {
+    width: 400px;
+  }
+  
+  input#id_tfontsize {
+    width: 40px;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<form action="{% url ide-terminal-pref %}" method="post" class="pref_form" enctype="multipart/form-data" target="_self">
+  {% csrf_token %}
+  <table>
+    <tr>
+      <td>
+        {% if form.errors.bg %}{{ form.errors.bg }}{% endif %}
+        <strong>Background Image</strong>:<br>{{ form.bg }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {% if form.errors.tfontsize %}{{ form.errors.tfontsize }}{% endif %}
+        <strong>Font Size</strong>:<br>{{ form.tfontsize }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {% if form.errors.font %}{{ form.errors.font }}{% endif %}
+        <strong>Font</strong>:<br>{{ form.font }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input type="submit" name="task" value="Save"/>
+      </td>
+    </tr>
+  </table>
+</form>
+{% endblock %}

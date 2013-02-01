@@ -1,0 +1,36 @@
+<script type="text/javascript">
+  $("#{{ did }}_right").remove();
+  $('body').append(
+  '<div id="{{ did }}_right" class="right_menu">\
+  <ul>\
+    <li class="fd">{{ d }}</li>\
+    <li class="btop"><a href="javascript: void(0)" onclick="new_stuff(\'{{ d }}\', \'{{ dir|escapejs }}\', \'{{ did }}\')" class="new">New File/Dir</a></li>\
+    <li><a href="javascript: void(0)" onclick="refresh_dir(\'{{ did }}\')" class="refresh">Refresh</a></li>\
+    {% if did != 'file_browser' %}<li><a href="javascript: rename(\'{{ dir }}\', \'{{ did }}\')" class="rename">Rename</a></li>{% endif %}\
+    {% if did != 'file_browser' %}<li><a href="javascript: delete_me(\'{{ dir }}\', \'{{ did }}\')" class="delete">Delete</a></li>{% endif %}\
+  </ul>\
+</div>' 
+  );
+  $("#{{ did }} > a").bind('contextmenu rightclick',  function(e) {
+    $(".right_menu").css("display", 'none');
+    
+    var did = "{{ did }}";
+    
+    $("#{{ did }}_right").css("display", 'block');
+    
+    var t = e.pageY - 20;
+    var h = $("#{{ did }}_right").height();
+    var bottom = t + h;
+    var doch = $(window).height();
+    if (bottom > doch) {
+      t = doch - h;
+    }
+    
+    $("#{{ did }}_right").css("top", t + 'px');
+    
+    var ol = e.pageX - 20;
+    $("#{{ did }}_right").css("left", ol + 'px');
+    e.preventDefault();
+    return false;
+  });
+</script>
